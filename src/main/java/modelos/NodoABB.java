@@ -2,49 +2,54 @@ package modelos;
 
 /**
  *
- * @author Dereck Enríquez
- * @param <E>
+ * @author Carlos San Juan <carlossanjuanc@gmail.com>
  */
-public class NodoABB<E> {
+public class NodoABB {
 
-    private E dato;
-    private NodoABB<E> izquierda;
-    private NodoABB<E> derecha;
+    NodoABB leftChild;
+    int key;
+    String p;
+    NodoABB rightChild;
 
-    public NodoABB(E dato, NodoABB<E> izquierda, NodoABB<E> derecha) {
-        super();
-        this.dato = dato;
-        this.izquierda = izquierda;
-        this.derecha = derecha;
+    public NodoABB getLeftChild() {
+        return leftChild;
     }
 
-    public E getDato() {
-        return dato;
+    public void setLeftChild(NodoABB leftChild) {
+        this.leftChild = leftChild;
     }
 
-    public void setDato(E dato) {
-        this.dato = dato;
+    public String getP() {
+        return p;
     }
 
-    public NodoABB<E> getIzquierda() {
-        return izquierda;
+    public void setP(String p) {
+        this.p = p;
     }
 
-    public void setIzquierda(NodoABB<E> izquierda) {
-        this.izquierda = izquierda;
+    public NodoABB getRightChild() {
+        return rightChild;
     }
 
-    public NodoABB<E> getDerecha() {
-        return derecha;
+    public void setRightChild(NodoABB rightChild) {
+        this.rightChild = rightChild;
     }
 
-    public void setDerecha(NodoABB<E> derecha) {
-        this.derecha = derecha;
+    
+    
+    public NodoABB(int key) {
+        this.key = key;
     }
-
+    
+    public NodoABB(int key, String p) {
+        this.key = key;
+        this.p = p;
+    }
+    
+    
     @Override
     public String toString() {
-        return "NodoABB{" + "dato=" + dato + ", izquierda=" + izquierda + ", derecha=" + derecha + '}';
+        return key + ", ";
     }
 
 }

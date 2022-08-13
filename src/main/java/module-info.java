@@ -4,5 +4,5 @@ module espol {
     requires javafx.graphics;
 
     opens espol to javafx.fxml;
-    exports espol;
+    exports controlador;
 }
