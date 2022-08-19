@@ -1,8 +1,7 @@
-module espol {
+module controlador {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.graphics;
 
-    opens espol to javafx.fxml;
+    opens controlador to javafx.fxml;
     exports controlador;
 }
