@@ -12,11 +12,11 @@ public class ABB {
     static Scanner sc = new Scanner(System.in);
     
     //NodoABB
-    public boolean isEmpty() {
+    public boolean isEmpty(){
         return (root == null);
     }
     
-    public void insertarIterativo(int key, String pregunta) {
+    public void insertarIterativo(int key, String pregunta){
         NodoABB nodo = new NodoABB(key, pregunta);
 
         if (isEmpty()) {
@@ -46,6 +46,8 @@ public class ABB {
             }
         }
     }
+    
+    
 
     /***************************************************************************/
     /******************************* INSERTAR
@@ -54,6 +56,26 @@ public class ABB {
     public void insertar(int key, String pregunta) {
         root = insertarR(key, pregunta, root);
     }
+    
+    public void insertar(int key, String pregunta, ArrayList<ArrayList> arrayl) {
+        root = insertarR(key, pregunta, root, arrayl);
+    }
+    
+    private NodoABB insertarR(int key, String pregunta, NodoABB nodo, ArrayList<ArrayList> arrayl) {
+        if (nodo == null) {
+            return new NodoABB(key, pregunta, arrayl); 
+        }
+        //Navega por el arbol dependiendo del valor de key
+        if (key < nodo.key) {
+            nodo.leftChild = insertarR(key,pregunta ,nodo.leftChild, arrayl);
+        } else if(key > nodo.key){
+            nodo.rightChild = insertarR(key,pregunta, nodo.rightChild, arrayl);
+        }
+        return nodo;
+        
+    }
+    
+    
 
     // Metodo privado que inserta de forma recursiva los nodos en el arbol
     // Notar que no se pueden ingresar claves duplicadas
@@ -81,14 +103,13 @@ public class ABB {
 
     public static void iterar(NodoABB nodo){
         System.out.println(nodo.getP());
-        
-        
         if (nodo == null){
             System.out.println("JUEGO CULMINADO");
         }
         
         if(nodo.getLeftChild()!=null || nodo.getRightChild()!=null){
             String respt = sc.nextLine();
+            
             if(respt.equals("si")){   
                 iterar(nodo.getLeftChild());
             
@@ -98,15 +119,10 @@ public class ABB {
         }else{
             System.out.println("JUEGO CULMINADO");
             
-        }
-        
-        
-        
-        
-        
-    
+        }        
     }
  
+    
     private NodoABB borrar(NodoABB nodo, int key) {
         if (nodo == null){
             return nodo;
@@ -154,14 +170,18 @@ public class ABB {
             }
         }
     }
+    
+    
 
     /***************************************************************************/
     /******************************* IN ORDER **********************************/
+    
+    
     public void imprimirInOrder() {
         inOrder(root);
     }
     
-    private void inOrder(NodoABB focusNode) {
+    private static void inOrder(NodoABB focusNode) {
         if (focusNode != null) {
             inOrder(focusNode.leftChild);
             System.out.print(focusNode);
@@ -236,9 +256,30 @@ public class ABB {
                 return null;
             }
         }
+        return nodoActual;
+    }
+    
+    /***************************************************************************/
+    /************************METODO USADO PARA EL ARBOL (SI Y NO) ********************************/
+    public static NodoABB siguienteElemnt(int key, int lvl){
+        NodoABB nodoActual = root;
+        
+        for(int i=0; i<lvl ;i++){
+            if (key < nodoActual.key) {
+                nodoActual = nodoActual.leftChild;
+            } else {
+                nodoActual = nodoActual.rightChild;
+            }
+
+            if (nodoActual == null) {
+                return null;
+            }
+        }
         
         return nodoActual;
     }
+    
+    
     
     /***************************************************************************/
     /******************************* BUSCAR MIN ********************************/
@@ -393,11 +434,11 @@ public class ABB {
     // Note que el arbol impreso esta girando en -90 grados, es decir,
     // la raiz sera el primera elemento mas a la izquierda de la consola, siendo su
     // hijo izquierdo el valor de abajo y el derecho el valor superior del siguiente tab
-    public void imprimirArbol() {
+    public static void imprimirArbol() {
         imprimir(root, 0);
     }
     
-    private void imprimir(NodoABB nodo, int depth) {
+    private static void imprimir(NodoABB nodo, int depth) {
         if (nodo.rightChild != null) {
             imprimir(nodo.rightChild, depth+1);
         }

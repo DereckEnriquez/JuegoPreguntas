@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Carlos San Juan <carlossanjuanc@gmail.com>
+ * @author G6
  */
 public class Cola {
     //Note que la estructura esta siendo emulada con la clase LinkedList.
