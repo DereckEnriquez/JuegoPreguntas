@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,10 @@ public class PrimaryController {
     @FXML
     private Label lblError;
     public static int var = 0;
+    @FXML
+    private TextField txtRutaRespuestas;
+    @FXML
+    private TextField txtRutaPreguntas;
     
     @FXML
     private void switchToSecondary() throws IOException {
@@ -38,6 +43,14 @@ public class PrimaryController {
             return (n<21 && n>0);  
             
         }
+    }
+
+    @FXML
+    private void cargarPreguntas(ActionEvent event) {
+    }
+
+    @FXML
+    private void cargarRespuestas(ActionEvent event) {
     }
     
     
