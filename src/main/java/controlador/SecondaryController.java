@@ -43,7 +43,7 @@ imgview.setImage(image);
         lblPreguntasRestantes.setText(String.valueOf(PrimaryController.var - 1));
         lblContador.setText("1");
         txtSalida.setText(elem.getP());
-        lblPreguntas.setText(elem.getP());
+        lblPreguntas.setText(elem.getP());        
         //recorrerArbol(new NodoAVV, PrimaryController.var);
 
     }
