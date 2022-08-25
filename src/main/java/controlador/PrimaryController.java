@@ -1,7 +1,10 @@
 package controlador;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -61,9 +64,23 @@ public class PrimaryController {
             if(preguntasTxt!=null){
                 fileLabel1.setText(preguntasTxt.getPath());                
                 txtRutaPreguntas.setText(fileLabel1.getText());
-                
-                
-                
+                try {
+                    String fichero = "rutas.txt";
+                    String ruta = txtRutaPreguntas.getText();
+                    
+                    File file = new File(fichero);
+                    // Si el archivo no existe es creado
+                    if (!file.exists()) {
+                        file.createNewFile();
+                    }
+                    FileWriter fw = new FileWriter(file);
+                    PrintWriter pw = new PrintWriter(fw);
+                    pw.println(ruta);                    
+                    pw.close();
+                    fw.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }catch(Exception ex){
             Alert a=new Alert(Alert.AlertType.ERROR,"Error");
@@ -80,6 +97,19 @@ public class PrimaryController {
             if(repsuestasTxt!=null){
                 fileLabel2.setText(repsuestasTxt.getPath());                
                 txtRutaRespuestas.setText(fileLabel2.getText());
+                try {
+                    String fichero = "rutas.txt";
+                    String ruta = txtRutaRespuestas.getText();
+                    
+                    File file = new File(fichero);
+                    // Si el archivo no existe es creado                    
+                    FileWriter fw = new FileWriter(file,true);                    
+                    PrintWriter pw = new PrintWriter(fw);
+                    pw.println(ruta);
+                    pw.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }catch(Exception ex){
             Alert a=new Alert(Alert.AlertType.ERROR,"Error");
