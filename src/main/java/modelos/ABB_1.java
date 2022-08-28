@@ -58,7 +58,7 @@ public class ABB_1 <Integer> {
         else return false;
     }    
     
-    public  static ABB_1<String> insertarPreguntas( ABB_1<String> arbol ,LinkedList<String> preguntas){ 
+    public  static void insertarPreguntas( ABB_1<String> arbol ,LinkedList<String> preguntas){ 
                 
         while(!preguntas.isEmpty()){
             if(arbol.isEmpty()){            
@@ -66,40 +66,39 @@ public class ABB_1 <Integer> {
                 preguntas.removeFirst();
             }                           
             else if(arbol.nodo.getLeft() == null && arbol.nodo.getRight()== null){
-                ABB_1<String> cont = new ABB_1<>(preguntas.getFirst());
+                ABB_1<String> cont = new ABB_1<String>(preguntas.getFirst());
                 arbol.nodo.setRight(cont);
                 arbol.nodo.setLeft(cont);
-                preguntas.removeFirst();                
+                preguntas.removeFirst();
                 
             } else{
-                arbol.nodo.Set(insertarPreguntas(arbol.nodo.getRight(),preguntas));
+                insertarPreguntas(arbol.nodo.getRight(),preguntas);
                 
-                arbol.nodo.Set(insertarPreguntas(arbol.nodo.getLeft(),preguntas));                   
+                insertarPreguntas(arbol.nodo.getLeft(),preguntas);                   
             }                           
-        }                
-        return arbol;
+        }                        
         
     }
     public  static void insertarRespuestas( ABB_1<String> arbol ,LinkedList<String> respuestas){
         while(!respuestas.isEmpty()){
             
-            if(respuestas.get(1) == "si" && respuestas.size() == 2){
+            if("sí".equals(respuestas.get(1)) && respuestas.size() == 2){
                 ABB_1<String> tmp = new ABB_1<String>(respuestas.getFirst());
                 arbol.nodo.setLeft(tmp);                
                 respuestas.removeFirst();
                 respuestas.removeFirst();
             }
-            else if(respuestas.get(1) == "no" && respuestas.size() == 2){
+            else if("no".equals(respuestas.get(1)) && respuestas.size() == 2){
                 ABB_1<String> tmp = new ABB_1<String>(respuestas.getFirst());
                 arbol.nodo.setRight(tmp);              
                 respuestas.removeFirst();
                 respuestas.removeFirst();
             }
-            else if(respuestas.get(1) == "si"){        
+            else if("sí".equals(respuestas.get(1))){        
                 respuestas.remove(1);
                 insertarRespuestas(arbol.nodo.getLeft(),respuestas);
                 
-            }else if(respuestas.get(1) == "no"){  
+            }else if("no".equals(respuestas.get(1))){  
                 respuestas.remove(1);
                 insertarRespuestas(arbol.nodo.getRight(),respuestas);                                                                                              
             }    

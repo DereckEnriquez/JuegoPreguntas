@@ -16,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import modelos.ABB;
+import modelos.ABB_1;
 import modelos.NodoABB;
 //import java.awt.*;
 //import javax.swing.*; 
@@ -39,6 +40,12 @@ public class SecondaryController implements Initializable {
     NodoABB elem = ABB.root;
     @FXML
     private ImageView imgview;
+    
+    LinkedList<String> preguntas = new LinkedList<>();
+    LinkedList<String> respuestas = new LinkedList<>();
+    
+    ABB_1<String> arbol1 = new ABB_1<String>(); 
+     
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,11 +53,10 @@ public class SecondaryController implements Initializable {
         imgview.setImage(image);
         lblPreguntasRestantes.setText(String.valueOf(PrimaryController.var - 1));
         lblContador.setText("1");
-        txtSalida.setText(elem.getP());
-        lblPreguntas.setText(elem.getP()); 
+        //txtSalida.setText(elem.getP());
         
-        LinkedList<String> preguntas = new LinkedList<>();
-        LinkedList<String> respuestas = new LinkedList<>();
+        
+        
                                      
         // leer rutas.txt
         File archivo = null;
@@ -105,6 +111,22 @@ public class SecondaryController implements Initializable {
         for (int i = 0; i <respuestas.size(); i++) {
             System.out.println(respuestas.get(i));            
         }
+        ABB_1.insertarPreguntas(arbol1, preguntas);        
+        //ABB_1.insertarRespuestas(arbol1, respuestas);
+        //LinkedList<LinkedList<String>> Resp = new LinkedList<>();
+        
+        while (!respuestas.isEmpty()){
+            LinkedList<String> rTmp = new LinkedList<>();
+            String[] r2Tmp = respuestas.getFirst().split(" ");
+            for (int i = 0; i < r2Tmp.length; i++) {
+                rTmp.add(r2Tmp[i]);                
+                
+            }
+            respuestas.removeFirst();            
+            ABB_1.insertarRespuestas(arbol1, rTmp);                                        
+        }
+        
+        lblPreguntas.setText((String) arbol1.nodo.getContenido()); 
     }
 
     @FXML
@@ -116,10 +138,11 @@ public class SecondaryController implements Initializable {
     private void btnSi(ActionEvent event) throws IOException {
         //ABB.imprimirArbol();
         if (Integer.parseInt(lblContador.getText()) < PrimaryController.var) {
-            if (elem.getLeftChild() != null) {
-                elem = elem.getLeftChild();
-                txtSalida.setText(elem.getP());
-                lblPreguntas.setText(elem.getP());
+            if (arbol1.nodo.getLeft()!= null ) {
+                //elem = elem.getLeftChild();
+                //txtSalida.setText(elem.getP());
+                txtSalida.setText("Ya estamos Cerca!!!");
+                lblPreguntas.setText((String) arbol1.nodo.getLeft().nodo.getContenido());
                 lblContador.setText(String.valueOf(Integer.parseInt(lblContador.getText()) + 1));
                 lblPreguntasRestantes.setText(String.valueOf(Integer.parseInt(lblPreguntasRestantes.getText()) - 1));
             } else {
@@ -152,10 +175,10 @@ public class SecondaryController implements Initializable {
     @FXML
     private void btnNo(ActionEvent event) {
         if (Integer.parseInt(lblContador.getText()) < PrimaryController.var) {
-            if (elem.getRightChild() != null) {
-                elem = elem.getRightChild();
-                txtSalida.setText(elem.getP());
-                lblPreguntas.setText(elem.getP());
+            if (arbol1.nodo.getLeft() != null) {
+                //elem = elem.getRightChild();
+                txtSalida.setText("Ya casi !!!");
+                lblPreguntas.setText((String) arbol1.nodo.getRight().nodo.getContenido());
                 lblContador.setText(String.valueOf(Integer.parseInt(lblContador.getText()) + 1));
                 lblPreguntasRestantes.setText(String.valueOf(Integer.parseInt(lblPreguntasRestantes.getText()) - 1));
             } else {
