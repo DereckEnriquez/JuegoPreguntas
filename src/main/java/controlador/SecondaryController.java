@@ -53,11 +53,7 @@ public class SecondaryController implements Initializable {
         imgview.setImage(image);
         lblPreguntasRestantes.setText(String.valueOf(PrimaryController.var - 1));
         lblContador.setText("1");
-        //txtSalida.setText(elem.getP());
-        
-        
-        
-                                     
+                       
         // leer rutas.txt
         File archivo = null;
         FileReader fr = null;
@@ -105,12 +101,14 @@ public class SecondaryController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         for (int i = 0; i < preguntas.size(); i++) {
             System.out.println(preguntas.get(i));            
         }
         for (int i = 0; i <respuestas.size(); i++) {
             System.out.println(respuestas.get(i));            
         }
+        
         ABB_1.insertarPreguntas(arbol1, preguntas);        
         //ABB_1.insertarRespuestas(arbol1, respuestas);
         //LinkedList<LinkedList<String>> Resp = new LinkedList<>();
@@ -119,14 +117,15 @@ public class SecondaryController implements Initializable {
             LinkedList<String> rTmp = new LinkedList<>();
             String[] r2Tmp = respuestas.getFirst().split(" ");
             for (int i = 0; i < r2Tmp.length; i++) {
-                rTmp.add(r2Tmp[i]);                
-                
+                rTmp.add(r2Tmp[i]);                                
+                System.out.println(r2Tmp[i]);
             }
             respuestas.removeFirst();            
             ABB_1.insertarRespuestas(arbol1, rTmp);                                        
         }
         
         lblPreguntas.setText((String) arbol1.nodo.getContenido()); 
+                  
     }
 
     @FXML
@@ -136,11 +135,9 @@ public class SecondaryController implements Initializable {
 
     @FXML
     private void btnSi(ActionEvent event) throws IOException {
-        //ABB.imprimirArbol();
+        
         if (Integer.parseInt(lblContador.getText()) < PrimaryController.var) {
-            if (arbol1.nodo.getLeft()!= null ) {
-                //elem = elem.getLeftChild();
-                //txtSalida.setText(elem.getP());
+            if (arbol1.nodo.getLeft()!= null ) {                
                 txtSalida.setText("Ya estamos Cerca!!!");
                 lblPreguntas.setText((String) arbol1.nodo.getLeft().nodo.getContenido());
                 lblContador.setText(String.valueOf(Integer.parseInt(lblContador.getText()) + 1));
